@@ -44,8 +44,7 @@ class Concetration {
         }
        
         var newArray = [Card]()
-        
-        for _ in 1...numberOfPairsOfCards * 2 {
+        for _ in 1...cards.count {
             
             let a = Int(arc4random_uniform(UInt32(cards.count)))
             newArray.append(cards[a])
