@@ -39,9 +39,21 @@ class Concetration {
         for _ in 1...numberOfPairsOfCards {
             let card = Card()
             cards += [card, card]
+            
+            
         }
+       
+        var newArray = [Card]()
         
-        //TODO: Shuffle the cards
+        for _ in 1...numberOfPairsOfCards * 2 {
+            
+            let a = Int(arc4random_uniform(UInt32(cards.count)))
+            newArray.append(cards[a])
+            cards.remove(at: a)
+            
+        }
+        cards = newArray
+        
     }
-    
+
 }
