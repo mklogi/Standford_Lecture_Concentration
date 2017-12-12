@@ -35,7 +35,7 @@ class Concetration {
     }
     
     func chooseCard(at index: Int) {
-        
+        assert(cards.indices.contains(index), "Concetration.chooseCard(at: \(index)): chosen index is not in the cards")
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 //check if card match
@@ -51,6 +51,7 @@ class Concetration {
        
     }
     init(numberOfPairsOfCards: Int) {
+        assert(numberOfPairsOfCards > 0, "Concetration.init(\(numberOfPairsOfCards)): you must have at least on pair of cards")
         for _ in 1...numberOfPairsOfCards {
             let card = Card()
             cards += [card, card]
@@ -71,3 +72,5 @@ class Concetration {
     }
 
 }
+
+
