@@ -34,6 +34,13 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func newButton(_ sender: UIButton) {
+      
+        flipcount = 0
+      
+      
+    }
+    
     private func updateViewFromModel(){
         
         for index in cardButtons.indices {
