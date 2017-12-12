@@ -50,6 +50,10 @@ class Concetration {
         }
        
     }
+    func newGame(){
+        cards.removeAll()
+    
+    }
     init(numberOfPairsOfCards: Int) {
         assert(numberOfPairsOfCards > 0, "Concetration.init(\(numberOfPairsOfCards)): you must have at least on pair of cards")
         for _ in 1...numberOfPairsOfCards {
@@ -61,8 +65,7 @@ class Concetration {
        
         var newArray = [Card]()
         for _ in 1...cards.count {
-            
-            let a = Int(arc4random_uniform(UInt32(cards.count)))
+           let a = Int(arc4random_uniform(UInt32(cards.count)))
             newArray.append(cards[a])
             cards.remove(at: a)
             
@@ -72,5 +75,9 @@ class Concetration {
     }
 
 }
+
+
+
+
 
 

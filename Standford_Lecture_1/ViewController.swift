@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+        
     private lazy var game = Concetration(numberOfPairsOfCards: numberOfPairsCard)
     var numberOfPairsCard : Int {
         return (cardButtons.count + 1) / 2
@@ -41,7 +42,7 @@ class ViewController: UIViewController {
             if card.isFaceUp {
                 button.setTitle(emoji(for: card), for: UIControlState.normal)
                 button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            }else {
+            } else {
                 button.setTitle("", for: UIControlState.normal)
                 button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0) : #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
             }
@@ -62,6 +63,7 @@ class ViewController: UIViewController {
         return emoji[card.identifier] ?? "?"
     }
 }
+
 extension Int {
     var arc4random: Int {
         if self > 0 {
