@@ -10,7 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
-        
+    override func viewDidLoad() {
+        emojiChoices = randomEmoji()
+    }
+
     private lazy var game = Concetration(numberOfPairsOfCards: numberOfPairsCard)
     var numberOfPairsCard : Int {
         return (cardButtons.count + 1) / 2
@@ -18,13 +21,13 @@ class ViewController: UIViewController {
     
     private(set) var flipcount = 0 { didSet { flipCountLabel.text = "Flips: \(flipcount)" }
         }
+    private var newGame = false
     
     @IBOutlet private var cardButtons: [UIButton]!
     
     @IBOutlet private weak var flipCountLabel: UILabel!
     
     @IBAction private func touchCard(_ sender: UIButton) {
-        
         flipcount += 1
         if let cardNumber = cardButtons.index(of: sender) {
             game.chooseCard(at: cardNumber)
@@ -35,20 +38,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func newButton(_ sender: UIButton) {
-        
-        emojiChoices.removeAll()
-        randomEmoji()
-       
-      
         flipcount = 0
         game.newGame()
-       
+        emojiChoices = randomEmoji()
+        newGame = true
         for index in cardButtons.indices {
             let button = cardButtons[index]
             button.setTitle("", for: UIControlState.normal)
             button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
         }
-      
     }
     
     private func updateViewFromModel(){
@@ -68,33 +66,40 @@ class ViewController: UIViewController {
     }
     
     private var emojiChoices: [String] = []
+    
     private var emoji = [Int:String]()
     
     private func emoji(for card: Card) -> String {
         
+        if newGame == true {
+            emoji.removeAll()
+            emojiChoices = randomEmoji()
+            newGame = false
+        }
+        
         if emoji[card.identifier] == nil, emojiChoices.count > 0 {
-            
-            emoji[card.identifier] = emojiChoices.remove(at: emojiChoices.count.arc4random)
+           emoji[card.identifier] = emojiChoices.remove(at: emojiChoices.count.arc4random)
+ 
         }
         
         return emoji[card.identifier] ?? "?"
     }
     
-    func randomEmoji() -> [String] {
-        
+    private func randomEmoji() -> [String] {
+
         let themes = ["animals","faces","sport","fruits","places","flags"]
         
         let someThemes = themes[themes.count.arc4random]
         
-        switch someThemes {
-            case "animals": self.emojiChoices = ["🐶","🐱","🐭","🐹","🦊","🐰","🐻","🐼"]
-            case "faces": self.emojiChoices = ["😀","😇","😍","🤪","🤩","🤯","😱","😰"]
-            case "sport": self.emojiChoices = ["⚽️","🏀","🏈","⚾️","🎾","🏐","🎱","🏉"]
-            case "fruits": self.emojiChoices = ["🍏","🍎","🍐","🍊","🍋","🍌","🍉","🍇"]
-            case "places": self.emojiChoices = ["🏔","🏛","🏥","🏣","🕋","🏭","🌋","🏝"]
-            case "flags": self.emojiChoices = ["🇵🇱","🇪🇸","🇳🇱","🇮🇶","🇮🇩","🇮🇳","🇭🇰","🇮🇷"]
-            default: print("there is no emojii symbols")
-        }
+            switch someThemes {
+                case "animals": self.emojiChoices = ["🐶","🐱","🐭","🐹","🦊","🐰","🐻","🐼"]
+                case "faces": self.emojiChoices = ["😀","😇","😍","🤪","🤩","🤯","😱","😰"]
+                case "sport": self.emojiChoices = ["⚽️","🏀","🏈","⚾️","🎾","🏐","🎱","🏉"]
+                case "fruits": self.emojiChoices = ["🍏","🍎","🍐","🍊","🍋","🍌","🍉","🍇"]
+                case "places": self.emojiChoices = ["🏔","🏛","🏥","🏣","🕋","🏭","🌋","🏝"]
+                case "flags": self.emojiChoices = ["🇵🇱","🇪🇸","🇳🇱","🇮🇶","🇮🇩","🇮🇳","🇭🇰","🇮🇷"]
+                default: print("there is no emojii symbols")
+            }
         return emojiChoices
     }
     
