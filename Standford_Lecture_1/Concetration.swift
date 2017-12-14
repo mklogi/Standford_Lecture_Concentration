@@ -55,7 +55,9 @@ class Concetration {
             cards[index].isFaceUp = false
             cards[index].isMatched = false
         }
+        
         var newArray = [Card]()
+        
         for _ in 1...cards.count {
             let a = Int(arc4random_uniform(UInt32(cards.count)))
             newArray.append(cards[a])
@@ -73,6 +75,9 @@ class Concetration {
             
         }
        
+        
+      
+        
         var newArray = [Card]()
         for _ in 1...cards.count {
            let a = Int(arc4random_uniform(UInt32(cards.count)))
@@ -84,6 +89,18 @@ class Concetration {
         
     }
 
+}
+extension Sequence where Iterator.Element == [Card] {
+    var rounded: [Card] {
+        var newArray = [Card]()
+        var array = Array(self)
+        for _ in 1...array.count {
+            let numberOfMixedCard = array.count.arc4random
+            newArray += array[numberOfMixedCard]
+            array.remove(at: numberOfMixedCard)
+        }
+        return newArray
+    }
 }
 
 
