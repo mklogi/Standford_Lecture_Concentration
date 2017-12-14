@@ -9,9 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+ 
     override func viewDidLoad() {
-        emojiChoices = randomEmoji()
+        emojiChoices = game.randomEmoji()
     }
 
     private lazy var game = Concetration(numberOfPairsOfCards: numberOfPairsCard)
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     @IBAction func newButton(_ sender: UIButton) {
         flipcount = 0
         game.newGame()
-        emojiChoices = randomEmoji()
+        emojiChoices = game.randomEmoji()
         newGame = true
         for index in cardButtons.indices {
             let button = cardButtons[index]
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
         
         if newGame == true {
             emoji.removeAll()
-            emojiChoices = randomEmoji()
+            emojiChoices = game.randomEmoji()
             newGame = false
         }
         
@@ -85,23 +85,7 @@ class ViewController: UIViewController {
         return emoji[card.identifier] ?? "?"
     }
     
-    private func randomEmoji() -> [String] {
-
-        let themes = ["animals","faces","sport","fruits","places","flags"]
-        
-        let someThemes = themes[themes.count.arc4random]
-        
-            switch someThemes {
-                case "animals": self.emojiChoices = ["🐶","🐱","🐭","🐹","🦊","🐰","🐻","🐼"]
-                case "faces": self.emojiChoices = ["😀","😇","😍","🤪","🤩","🤯","😱","😰"]
-                case "sport": self.emojiChoices = ["⚽️","🏀","🏈","⚾️","🎾","🏐","🎱","🏉"]
-                case "fruits": self.emojiChoices = ["🍏","🍎","🍐","🍊","🍋","🍌","🍉","🍇"]
-                case "places": self.emojiChoices = ["🏔","🏛","🏥","🏣","🕋","🏭","🌋","🏝"]
-                case "flags": self.emojiChoices = ["🇵🇱","🇪🇸","🇳🇱","🇮🇶","🇮🇩","🇮🇳","🇭🇰","🇮🇷"]
-                default: print("there is no emojii symbols")
-            }
-        return emojiChoices
-    }
+    
     
 }
 

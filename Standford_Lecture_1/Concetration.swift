@@ -60,6 +60,26 @@ class Concetration {
     
     }
     
+    func randomEmoji() -> [String] {
+        
+        var emojiChoices: [String] = []
+        
+        let themes = ["animals","faces","sport","fruits","places","flags"]
+        
+        let someThemes = themes[themes.count.arc4random]
+        
+        switch someThemes {
+            case "animals": emojiChoices = ["🐶","🐱","🐭","🐹","🦊","🐰","🐻","🐼"]
+            case "faces": emojiChoices = ["😀","😇","😍","🤪","🤩","🤯","😱","😰"]
+            case "sport": emojiChoices = ["⚽️","🏀","🏈","⚾️","🎾","🏐","🎱","🏉"]
+            case "fruits": emojiChoices = ["🍏","🍎","🍐","🍊","🍋","🍌","🍉","🍇"]
+            case "places": emojiChoices = ["🏔","🏛","🏥","🏣","🕋","🏭","🌋","🏝"]
+            case "flags": emojiChoices = ["🇵🇱","🇪🇸","🇳🇱","🇮🇶","🇮🇩","🇮🇳","🇭🇰","🇮🇷"]
+            default: print("there is no emojii symbols")
+        }
+        return emojiChoices
+    }
+    
   
     init(numberOfPairsOfCards: Int) {
         assert(numberOfPairsOfCards > 0, "Concetration.init(\(numberOfPairsOfCards)): you must have at least on pair of cards")
@@ -74,6 +94,7 @@ class Concetration {
     }
 
 }
+
 
 // MARK: Extension
 
