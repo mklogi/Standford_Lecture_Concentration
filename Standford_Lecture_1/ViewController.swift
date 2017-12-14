@@ -38,6 +38,7 @@ class ViewController: UIViewController {
       
         flipcount = 0
         game.newGame()
+       
         for index in cardButtons.indices {
             let button = cardButtons[index]
             button.setTitle("", for: UIControlState.normal)
