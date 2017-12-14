@@ -28,8 +28,9 @@ class ViewController: UIViewController {
     @IBOutlet private weak var flipCountLabel: UILabel!
     
     @IBAction private func touchCard(_ sender: UIButton) {
-        flipcount += 1
+        
         if let cardNumber = cardButtons.index(of: sender) {
+            flipcount = game.count
             game.chooseCard(at: cardNumber)
             updateViewFromModel()
         } else {

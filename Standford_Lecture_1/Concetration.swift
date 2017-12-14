@@ -11,6 +11,8 @@ import Foundation
 
 class Concetration {
     
+    var count = 0
+    
     private(set) var cards = [Card]()
     private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
@@ -35,6 +37,7 @@ class Concetration {
     }
     
     func chooseCard(at index: Int) {
+        
         assert(cards.indices.contains(index), "Concetration.chooseCard(at: \(index)): chosen index is not in the cards")
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
@@ -42,8 +45,13 @@ class Concetration {
                 if cards[matchIndex].identifier == cards[index].identifier {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
+                    
                 }
+                
                 cards[index].isFaceUp = true
+                cards[index].isSeen += 1
+                count = counter(at: index)
+ 
             } else {
                 indexOfOneAndOnlyFaceUpCard = index
             }
@@ -51,14 +59,13 @@ class Concetration {
        
     }
     func newGame(){
-        
         for index in cards.indices {
             cards[index].isFaceUp = false
             cards[index].isMatched = false
-            cards[index].isSeen = false
+            cards[index].isSeen = 0
+            count = 0
         }
           cards = cards.rounded
-    
     }
     
     func randomEmoji() -> [String] {
@@ -70,7 +77,7 @@ class Concetration {
         let someThemes = themes[themes.count.arc4random]
         
         switch someThemes {
-            case "animals": emojiChoices = ["🐶","🐱","🐭","🐹","🦊","🐰","🐻","🐼"]
+            case "animals": emojiChoices = ["🐶","🐱","🐭","🐹","🦊","🐥","🐻","🐤"]
             case "faces": emojiChoices = ["😀","😇","😍","🤪","🤩","🤯","😱","😰"]
             case "sport": emojiChoices = ["⚽️","🏀","🏈","⚾️","🎾","🏐","🎱","🏉"]
             case "fruits": emojiChoices = ["🍏","🍎","🍐","🍊","🍋","🍌","🍉","🍇"]
@@ -81,17 +88,23 @@ class Concetration {
         return emojiChoices
     }
     
-  
+    func counter(at index: Int) -> Int {
+        
+        if cards[index].isSeen >= 2 && !cards[index].isMatched{
+            count -= 2
+        } else if cards[index].isMatched {
+            count += 2
+        }
+        return count
+    }
+   
     init(numberOfPairsOfCards: Int) {
         assert(numberOfPairsOfCards > 0, "Concetration.init(\(numberOfPairsOfCards)): you must have at least on pair of cards")
         for _ in 1...numberOfPairsOfCards {
             let card = Card()
             cards += [card, card]
-            
         }
-        
         cards = cards.rounded
-        
     }
 
 }
