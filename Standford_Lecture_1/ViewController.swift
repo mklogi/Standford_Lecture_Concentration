@@ -37,7 +37,12 @@ class ViewController: UIViewController {
     @IBAction func newButton(_ sender: UIButton) {
       
         flipcount = 0
-      
+        game.newGame()
+        for index in cardButtons.indices {
+            let button = cardButtons[index]
+            button.setTitle("", for: UIControlState.normal)
+            button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+        }
       
     }
     

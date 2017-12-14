@@ -51,7 +51,17 @@ class Concetration {
        
     }
     func newGame(){
-        cards.removeAll()
+        for index in cards.indices {
+            cards[index].isFaceUp = false
+            cards[index].isMatched = false
+        }
+        var newArray = [Card]()
+        for _ in 1...cards.count {
+            let a = Int(arc4random_uniform(UInt32(cards.count)))
+            newArray.append(cards[a])
+            cards.remove(at: a)
+        }
+        cards = newArray
     
     }
     init(numberOfPairsOfCards: Int) {
