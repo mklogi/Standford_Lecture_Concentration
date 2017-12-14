@@ -58,6 +58,8 @@ class Concetration {
           cards = cards.rounded
     
     }
+    
+  
     init(numberOfPairsOfCards: Int) {
         assert(numberOfPairsOfCards > 0, "Concetration.init(\(numberOfPairsOfCards)): you must have at least on pair of cards")
         for _ in 1...numberOfPairsOfCards {
