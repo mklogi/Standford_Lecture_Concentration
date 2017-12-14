@@ -37,7 +37,7 @@ class Concetration {
     }
     
     func chooseCard(at index: Int) {
-        
+        cards[index].isSeen += 1
         assert(cards.indices.contains(index), "Concetration.chooseCard(at: \(index)): chosen index is not in the cards")
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
@@ -45,16 +45,14 @@ class Concetration {
                 if cards[matchIndex].identifier == cards[index].identifier {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
-                    
                 }
-                
                 cards[index].isFaceUp = true
-                cards[index].isSeen += 1
-                count = counter(at: index)
+               // count = counter(at: index)
  
             } else {
                 indexOfOneAndOnlyFaceUpCard = index
             }
+            count = counter(at: index)
         }
        
     }
@@ -90,8 +88,8 @@ class Concetration {
     
     func counter(at index: Int) -> Int {
         
-        if cards[index].isSeen >= 2 && !cards[index].isMatched{
-            count -= 2
+        if cards[index].isSeen >= 2 && !cards[index].isMatched {
+            count -= 1
         } else if cards[index].isMatched {
             count += 2
         }
