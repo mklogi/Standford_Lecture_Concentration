@@ -12,7 +12,8 @@ class ViewController: UIViewController {
  
     override func viewDidLoad() {
         emojiChoices = randomEmoji()
-        setTheme(at: themeColor)
+        prepareToNewGame()
+        setTheme()
     }
 
     private lazy var game = Concetration(numberOfPairsOfCards: numberOfPairsCard)
@@ -29,7 +30,7 @@ class ViewController: UIViewController {
     @IBOutlet private weak var flipCountLabel: UILabel!
     
     @IBAction private func touchCard(_ sender: UIButton) {
-        
+
         if let cardNumber = cardButtons.index(of: sender) {
             flipcount = game.count
             game.chooseCard(at: cardNumber)
@@ -40,15 +41,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func newButton(_ sender: UIButton) {
-        flipcount = 0
-        game.newGame()
-        emojiChoices = randomEmoji()
-        setTheme(at: themeColor)
-        newGame = true
-        for index in cardButtons.indices {
-            let button = cardButtons[index]
-            button.setTitle("", for: UIControlState.normal)
-        }
+        prepareToNewGame()
+        setTheme()
     }
     
     private func updateViewFromModel(){
@@ -62,8 +56,7 @@ class ViewController: UIViewController {
             } else {
                 button.setTitle("", for: UIControlState.normal)
                // button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0) : #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
-                
-               
+     
                 button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0) : themeColor[1]
                 
             }
@@ -81,7 +74,6 @@ class ViewController: UIViewController {
         
         if newGame == true {
             emoji.removeAll()
-            emojiChoices = randomEmoji()
             newGame = false
         }
         
@@ -97,7 +89,7 @@ class ViewController: UIViewController {
         
         var emojiChoices: [String] = []
         
-        let themes = ["animals","faces","sport","fruits","places","flags"]
+        let themes = ["removal","animals","faces","sport","fruits","places","flags"]
         
         let someThemes = themes[themes.count.arc4random]
         
@@ -112,19 +104,21 @@ class ViewController: UIViewController {
         }
         return emojiChoices
     }
-
-    func setTheme(at themeColor: [UIColor]){
-        
-        self.view.backgroundColor = themeColor[0]
+    func prepareToNewGame(){
+        game.newGame()
+        emojiChoices = randomEmoji()
+        flipcount = 0
+        newGame = true
+    }
+    func setTheme() {
         for index in cardButtons.indices {
-            
             let button = cardButtons[index]
+            button.setTitle("", for: UIControlState.normal)
             button.backgroundColor = themeColor[1]
         }
+  
     }
 }
-
-
 
 extension Int {
     var arc4random: Int {
