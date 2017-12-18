@@ -14,7 +14,7 @@ class Concetration {
     
     var count = 0.0
     
-    private var arrayComparision = 0
+    var arrayComparision = 0
     
     private(set) var cards = [Card]()
     private var matchedValuesArray = [Card]()
@@ -25,6 +25,7 @@ class Concetration {
                 if cards[index].isFaceUp {
                     if foundIndex == nil {
                         foundIndex = index
+                        
                     } else {
                         
                         return nil
@@ -42,6 +43,7 @@ class Concetration {
     }
     
     func chooseCard(at index: Int) {
+        
         assert(cards.indices.contains(index), "Concetration.chooseCard(at: \(index)): chosen index is not in the cards")
         
         cards[index].isSeen += 1
@@ -53,6 +55,7 @@ class Concetration {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                     matchedValuesArray += [cards[matchIndex], cards[index]]
+                    
                 }
                 
                 cards[index].isFaceUp = true
@@ -61,10 +64,10 @@ class Concetration {
                 
                 indexOfOneAndOnlyFaceUpCard = index
             }
-    
+           
             count = counter(at: index)
         }
- 
+
     }
     
     func newGame(){
@@ -82,32 +85,26 @@ class Concetration {
     func counter(at index: Int) -> Double {
         
         arrayComparision = cards.count - matchedValuesArray.count
-
-        if cards[index].isSeen >= 2 && !cards[index].isMatched {
-            count -= 1
-        } else if cards[index].isMatched {
-           count += 2
-        }
-        
         if arrayComparision == 0 {
-            print(count)
+            
             let endingTime = Date()
             let interval = Double(endingTime.timeIntervalSince(startingTime))
-            print(interval)
-            if interval < 20.0 {
-                count += 20
-            } else if interval > 20.0 {
-                count += 10
-            } else if interval > 30.0 {
-                count += 5
-            } else {
-                count = count - 10
+            switch interval {
+                case 0..<20.0: count += 20
+                case 20.0..<30.0: count += 10
+                case 30.0..<40.0: count += 5
+                default: count -= 10
             }
-            print(count)
+        } else {
+
+            if cards[index].isSeen >= 2 && !cards[index].isMatched {
+                count -= 1
+            } else if cards[index].isMatched {
+               count += 2
+            }
+        
         }
-   
         return count
-            
     }
    
     init(numberOfPairsOfCards: Int) {
