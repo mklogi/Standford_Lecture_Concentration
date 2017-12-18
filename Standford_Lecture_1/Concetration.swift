@@ -66,25 +66,6 @@ class Concetration {
           cards = cards.rounded
     }
     
-    func randomEmoji() -> [String] {
-        
-        var emojiChoices: [String] = []
-        
-        let themes = ["animals","faces","sport","fruits","places","flags"]
-        
-        let someThemes = themes[themes.count.arc4random]
-        
-        switch someThemes {
-            case "animals": emojiChoices = ["🐶","🐱","🐭","🐹","🦊","🐥","🐻","🐤"]
-            case "faces": emojiChoices = ["😀","😇","😍","🤪","🤩","🤯","😱","😰"]
-            case "sport": emojiChoices = ["⚽️","🏀","🏈","⚾️","🎾","🏐","🎱","🏉"]
-            case "fruits": emojiChoices = ["🍏","🍎","🍐","🍊","🍋","🍌","🍉","🍇"]
-            case "places": emojiChoices = ["🏔","🏛","🏥","🏣","🕋","🏭","🌋","🏝"]
-            case "flags": emojiChoices = ["🇵🇱","🇪🇸","🇳🇱","🇮🇶","🇮🇩","🇮🇳","🇭🇰","🇮🇷"]
-            default: print("there is no emojii symbols")
-        }
-        return emojiChoices
-    }
     
     func counter(at index: Int) -> Int {
         
@@ -106,7 +87,6 @@ class Concetration {
     }
 
 }
-
 
 // MARK: Extension
 
