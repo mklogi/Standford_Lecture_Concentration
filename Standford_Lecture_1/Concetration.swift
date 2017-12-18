@@ -8,12 +8,16 @@
 
 import Foundation
 
-
 class Concetration {
+
+    private var startingTime = Date()
     
-    var count = 0
+    var count = 0.0
+    
+    private var arrayComparision = 0
     
     private(set) var cards = [Card]()
+    private var matchedValuesArray = [Card]()
     private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
             var foundIndex : Int?
@@ -22,6 +26,7 @@ class Concetration {
                     if foundIndex == nil {
                         foundIndex = index
                     } else {
+                        
                         return nil
                     }
                 }
@@ -31,33 +36,40 @@ class Concetration {
         set{
             for index in cards.indices {
                 cards[index].isFaceUp = (index == newValue)
+
             }
-            
         }
     }
     
     func chooseCard(at index: Int) {
-        cards[index].isSeen += 1
         assert(cards.indices.contains(index), "Concetration.chooseCard(at: \(index)): chosen index is not in the cards")
+        
+        cards[index].isSeen += 1
+        
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 //check if card match
                 if cards[matchIndex].identifier == cards[index].identifier {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
+                    matchedValuesArray += [cards[matchIndex], cards[index]]
                 }
+                
                 cards[index].isFaceUp = true
-               // count = counter(at: index)
- 
+
             } else {
+                
                 indexOfOneAndOnlyFaceUpCard = index
             }
+    
             count = counter(at: index)
         }
-       
+ 
     }
     
     func newGame(){
+        startingTime = Date()
+        matchedValuesArray.removeAll()
         for index in cards.indices {
             cards[index].isFaceUp = false
             cards[index].isMatched = false
@@ -67,15 +79,35 @@ class Concetration {
           cards = cards.rounded
     }
     
-    
-    func counter(at index: Int) -> Int {
+    func counter(at index: Int) -> Double {
         
+        arrayComparision = cards.count - matchedValuesArray.count
+
         if cards[index].isSeen >= 2 && !cards[index].isMatched {
             count -= 1
         } else if cards[index].isMatched {
-            count += 2
+           count += 2
         }
+        
+        if arrayComparision == 0 {
+            print(count)
+            let endingTime = Date()
+            let interval = Double(endingTime.timeIntervalSince(startingTime))
+            print(interval)
+            if interval < 20.0 {
+                count += 20
+            } else if interval > 20.0 {
+                count += 10
+            } else if interval > 30.0 {
+                count += 5
+            } else {
+                count = count - 10
+            }
+            print(count)
+        }
+   
         return count
+            
     }
    
     init(numberOfPairsOfCards: Int) {

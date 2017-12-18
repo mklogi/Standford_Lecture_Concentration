@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         return (cardButtons.count + 1) / 2
         }
     
-    private(set) var flipcount = 0 { didSet { flipCountLabel.text = "Flips: \(flipcount)" }
+    private(set) var flipcount = 0.0 { didSet { flipCountLabel.text = "Flips: \(flipcount)" }
         }
     private var newGame = false
     
@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         
         var emojiChoices: [String] = []
         
-        let themes = ["removal","animals","faces","sport","fruits","places","flags"]
+        let themes = ["animals","faces","sport","fruits","places","flags"]
         
         let someThemes = themes[themes.count.arc4random]
         
