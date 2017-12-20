@@ -9,13 +9,9 @@
 import Foundation
 
 class Concetration {
-
     private var startingTime = Date()
-    
     var count = 0.0
-    
     var arrayComparision = 0
-    
     private(set) var cards = [Card]()
     private var matchedValuesArray = [Card]()
     private var indexOfOneAndOnlyFaceUpCard: Int? {
@@ -25,9 +21,7 @@ class Concetration {
                 if cards[index].isFaceUp {
                     if foundIndex == nil {
                         foundIndex = index
-                        
                     } else {
-                        
                         return nil
                     }
                 }
@@ -37,17 +31,12 @@ class Concetration {
         set{
             for index in cards.indices {
                 cards[index].isFaceUp = (index == newValue)
-
             }
         }
     }
-    
     func chooseCard(at index: Int) {
-        
         assert(cards.indices.contains(index), "Concetration.chooseCard(at: \(index)): chosen index is not in the cards")
-        
         cards[index].isSeen += 1
-        
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 //check if card match
@@ -55,38 +44,17 @@ class Concetration {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                     matchedValuesArray += [cards[matchIndex], cards[index]]
-                    
                 }
-                
                 cards[index].isFaceUp = true
-
             } else {
-                
                 indexOfOneAndOnlyFaceUpCard = index
             }
-           
             count = counter(at: index)
         }
-
     }
-    
-    func newGame(){
-        startingTime = Date()
-        matchedValuesArray.removeAll()
-        for index in cards.indices {
-            cards[index].isFaceUp = false
-            cards[index].isMatched = false
-            cards[index].isSeen = 0
-            count = 0
-        }
-          cards = cards.rounded
-    }
-    
     func counter(at index: Int) -> Double {
-        
         arrayComparision = cards.count - matchedValuesArray.count
         if arrayComparision == 0 {
-            
             let endingTime = Date()
             let interval = Double(endingTime.timeIntervalSince(startingTime))
             switch interval {
@@ -96,13 +64,11 @@ class Concetration {
                 default: count -= 10
             }
         } else {
-
             if cards[index].isSeen >= 2 && !cards[index].isMatched {
                 count -= 1
             } else if cards[index].isMatched {
                count += 2
             }
-        
         }
         return count
     }
@@ -115,7 +81,6 @@ class Concetration {
         }
         cards = cards.rounded
     }
-
 }
 
 // MARK: Extension
