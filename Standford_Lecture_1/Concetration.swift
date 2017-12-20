@@ -11,7 +11,7 @@ import Foundation
 class Concetration {
     private var startingTime = Date()
     var count = 0.0
-    var arrayComparision = 0
+    private(set) var arrayComparision = 0
     private(set) var cards = [Card]()
     private var matchedValuesArray = [Card]()
     private var indexOfOneAndOnlyFaceUpCard: Int? {
