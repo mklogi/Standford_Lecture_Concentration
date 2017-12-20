@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Concetration {
+struct Concetration {
     private var startingTime = Date()
     var count = 0.0
     private(set) var arrayComparision = 0
@@ -34,7 +34,7 @@ class Concetration {
             }
         }
     }
-    func chooseCard(at index: Int) {
+    mutating func chooseCard(at index: Int) {
         assert(cards.indices.contains(index), "Concetration.chooseCard(at: \(index)): chosen index is not in the cards")
         cards[index].isSeen += 1
         if !cards[index].isMatched {
@@ -52,7 +52,7 @@ class Concetration {
             count = counter(at: index)
         }
     }
-    func counter(at index: Int) -> Double {
+    mutating func counter(at index: Int) -> Double {
         arrayComparision = cards.count - matchedValuesArray.count
         if arrayComparision == 0 {
             let endingTime = Date()
