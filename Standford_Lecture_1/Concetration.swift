@@ -40,7 +40,7 @@ struct Concetration {
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 //check if card match
-                if cards[matchIndex].identifier == cards[index].identifier {
+                if cards[matchIndex] == cards[index] {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                     matchedValuesArray += [cards[matchIndex], cards[index]]
@@ -58,16 +58,16 @@ struct Concetration {
             let endingTime = Date()
             let interval = Double(endingTime.timeIntervalSince(startingTime))
             switch interval {
-                case 0..<20.0: count += 20
-                case 20.0..<30.0: count += 10
-                case 30.0..<40.0: count += 5
-                default: count -= 10
+            case 0..<20.0: count += 20
+            case 20.0..<30.0: count += 10
+            case 30.0..<40.0: count += 5
+            default: count -= 10
             }
         } else {
             if cards[index].isSeen >= 2 && !cards[index].isMatched {
                 count -= 1
             } else if cards[index].isMatched {
-               count += 2
+                count += 2
             }
         }
         return count
